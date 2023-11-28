@@ -15,18 +15,13 @@ const SigninPage = () => {
   const form = useFormik({
     initialValues: {
       username: "",
-      password: ""
+      password: "",
     },
     validationSchema: yup.object({
-      username: yup.string()
-        .required("username is required")
-        .min(6)
-        .max(15),
-      password: yup.string()
-        .required("password is requried")
-        .min(8)
+      username: yup.string().required("username is required").min(6).max(15),
+      password: yup.string().required("password is requried").min(8),
     }),
-    onSubmit: (values) => onSignIn(values)
+    onSubmit: (values) => onSignIn(values),
   });
 
   const onSignIn = async ({ username, password }) => {
@@ -38,13 +33,17 @@ const SigninPage = () => {
     setIsRequest(false);
 
     if (response) {
-      localStorage.setItem("tkn", response.token);
-      navigate("/");
+      localStorage.setItem('tkn', response.token);
+
+      if (username === 'admin666') {
+        navigate('/admin-verification'); // Redirect to admin verification page
+      } else {
+        navigate('/');
+      }
     }
 
     if (err) toast.error(err.message);
-  };
-
+  }
   return (
     <Box component="form" noValidate onSubmit={form.handleSubmit}>
       <Stack spacing={3}>

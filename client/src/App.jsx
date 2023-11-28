@@ -5,6 +5,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
+import AdminVerificationPage from "./pages/AdminVerificationPage";
+import AdminPanel from "./pages/AdminPanel"; 
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -13,7 +15,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const theme = createTheme({
-    palette: { mode: "dark" }
+    palette: { mode: "dark" },
   });
 
   return (
@@ -30,21 +32,36 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          } />
-          <Route path="/signin" element={
-            <AuthRoute>
-              <SigninPage />
-            </AuthRoute>
-          } />
-          <Route path="/signup" element={
-            <AuthRoute>
-              <SignupPage />
-            </AuthRoute>
-          } />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <AuthRoute>
+                <SigninPage />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <AuthRoute>
+                <SignupPage />
+              </AuthRoute>
+            }
+          />
+          {/* Add the route for AdminVerificationPage */}
+          <Route
+            path="/admin-verification"
+            element={<AdminVerificationPage />}
+          />
+          <Route path="/admin-panel/*" element={<AdminPanel />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
